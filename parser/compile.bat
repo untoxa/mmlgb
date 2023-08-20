@@ -7,7 +7,8 @@ if %errorlevel% neq 0 (
 	exit /b %errorlevel%
 )
 
-lcc.exe driver\player.asm driver\music.asm driver\song.asm driver\freq.asm driver\noisefreq.asm driver\vib.asm -o rom.gb
+lcc.exe -c driver\song.asm -o driver\song.o
+lcc.exe driver\player.o driver\music.o driver\song.o driver\freq.o driver\noisefreq.o driver\vib.o -o rom.gb
 
 if %errorlevel% neq 0 (
 	echo Error compiling rom!

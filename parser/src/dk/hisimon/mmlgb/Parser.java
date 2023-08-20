@@ -9,7 +9,7 @@ public class Parser {
 	private Song song, song_root;
 
 	private int position;
-	private boolean in_macro;
+    private boolean in_macro;
 	private Lexer.Token next;
 
 	private static final String[] CHANNEL_NAMES = {"A","B","C","D"};
@@ -23,9 +23,9 @@ public class Parser {
 	public Parser(List<Lexer.Token> tokens) {
 		this.tokens = tokens;
 		song = new Song();
-		song_root = song;
+        song_root = song;
 		position = 0;
-		in_macro = false;
+        in_macro = false;
 		next = tokens.get(0);
 	}
 
@@ -81,7 +81,7 @@ public class Parser {
 		eat(Lexer.TokenType.LCURLY, "{");
 
 		// Parse samples
-		List<Integer> samples = new ArrayList<Integer>(32);
+        List<Integer> samples = new ArrayList<Integer>(32);
 		for(int i = 0; i < 32; ++i) {
 			while(next.type == Lexer.TokenType.NEWLINE) eat();
 			if(next.type != Lexer.TokenType.NUMBER) {
@@ -89,8 +89,8 @@ public class Parser {
 			}
 			int sample = parseInt(next.data);
 			eat();
-			if(sample > 15) {
-				throw new ParserException(String.format("Invalid wave sample %d. Expected 0 to 15.", sample), next);
+			if(sample < 0 || sample > 15) {
+				throw new ParserException(String.format("Invalid wave sample %d. Expected 0-15.", sample), next);
 			}
 			samples.add(sample);
 
@@ -121,41 +121,41 @@ public class Parser {
 
 		ArrayList<Lexer.Token> macro = new ArrayList<Lexer.Token>();
 		while(next.type != Lexer.TokenType.RCURLY) {
-			while(next.type == Lexer.TokenType.NEWLINE) eat();
+            while(next.type == Lexer.TokenType.NEWLINE) eat();
 
 			macro.add(new Lexer.Token(next));
 			eat();
 
-			while(next.type == Lexer.TokenType.NEWLINE) eat();
+            while(next.type == Lexer.TokenType.NEWLINE) eat();
 		}
-		macro.add(new Lexer.Token(Lexer.TokenType.NEWLINE, "\n"));
+        macro.add(new Lexer.Token(Lexer.TokenType.NEWLINE, "\n"));
 
 		eat(Lexer.TokenType.RCURLY, "}");
 		eat(Lexer.TokenType.NEWLINE, "Line break");
 
-		List<Lexer.Token> tokens_bak = tokens;
-		song = new Song();
-		int position_bak = position;
+        List<Lexer.Token> tokens_bak = tokens;
+        song = new Song();
+        int position_bak = position;
 
-		tokens = macro;
-		position = 0;
-		in_macro = true;
-		next = tokens.get(0);
+        tokens = macro;
+        position = 0;
+        in_macro = true;
+        next = tokens.get(0);
 
-		boolean active[] = {true, false, false, false};
-		parseCommands(active);
-		List<Integer> macro_data = song.getChannel(0);
+        boolean active[] = {true, false, false, false};
+        parseCommands(active);
+        List<Integer> macro_data = song.getChannel(0);
 
-		tokens = tokens_bak;
-		song = song_root;
-		position = position_bak;
-		in_macro = false;
-		next = tokens.get(position);
+        tokens = tokens_bak;
+        song = song_root;
+        position = position_bak;
+        in_macro = false;
+        next = tokens.get(position);
 
-		song.addMacroData(id, macro_data);
+        song.addMacroData(id, macro_data);
 	}
 
-	private void parseChannel() throws ParserException {
+    private void parseChannel() throws ParserException {
 		boolean active[] = new boolean[4];
 		// Parse active channels
 		while(next.type == Lexer.TokenType.CHANNEL) {
@@ -168,8 +168,8 @@ public class Parser {
 			eat();
 		}
 
-		parseCommands(active);
-	}
+        parseCommands(active);
+    }
 
 	private void parseCommands(boolean active[]) throws ParserException {
 		// Parse commands
@@ -288,11 +288,11 @@ public class Parser {
 						throw new ParserException("Invalid volume. Expected number.", next);
 					}
 					int volume = parseInt(next.data);
-					if(active[2] && volume > 3) {
-						throw new ParserException("Invalid volume for wave channel. Expected 0 to 3.", next);
+					if(active[2] && (volume < 0 || volume > 3)) {
+						throw new ParserException("Invalid volume for wave channel. Expected 0-3.", next);
 					}
-					if(volume > 15) {
-						throw new ParserException("Invalid volume value. Expected 0 to 15.", next);
+					if(volume < 0 || volume > 15) {
+						throw new ParserException("Invalid volume value. Expected 0-15.", next);
 					}
 					eat();
 
@@ -380,7 +380,7 @@ public class Parser {
 						throw new ParserException("Expected wave data id.", next);
 					}
 					Integer id = song.getWaveIndex(parseInt(next.data));
-					if(id == null) throw new ParserException(String.format("Wave \"%s\" not defined.", next.data), next);
+                    if(id == null) throw new ParserException(String.format("Wave \"%s\" not defined.", next.data), next);
 					eat();
 
 					song.addData(active, Song.CMD.T_WAVE.ordinal());
@@ -442,40 +442,13 @@ public class Parser {
 					}
 
 					int speed = parseInt(next.data);
-					if(speed > 127) {
-						throw new ParserException(String.format("Invalid portamento speed %d. Expected -127 to 127.", speed), next);
+					if(speed < 0 || speed > 128) {
+						throw new ParserException(String.format("Invalid portamento speed. Expected 0-128.", speed), next);
 					}
 					eat();
 
 					song.addData(active, Song.CMD.T_PORTAMENTO.ordinal());
 					song.addData(active, speed);
-				}
-				else if(next.data.equals("@s")) {
-					if(active[2]) {
-						throw new ParserException("@s only allowed in channel 1, 2 and 4.", next);
-					}
-					eat();
-					
-					boolean negative = false;
-					if(next.type == Lexer.TokenType.DASH) {
-						negative = true;
-						eat();
-					}
-
-					if(next.type != Lexer.TokenType.NUMBER) {
-						throw new ParserException("Expected number after @s macro.", next);
-					}
-
-					int speed = parseInt(next.data);
-					if(speed > 127) {
-						throw new ParserException(String.format("Invalid pitch slide speed %d. Expected 0-127.", speed), next);
-					}
-					eat();
-
-					if(negative) speed = -speed;
-
-					song.addData(active, Song.CMD.T_SLIDE.ordinal());
-					song.addData(active, speed + 128);
 				}
 				else if(next.data.equals("@po")) {
 					if(active[3]) {
@@ -494,7 +467,7 @@ public class Parser {
 					}
 
 					int offset = parseInt(next.data);
-					if(offset > 127) {
+					if(offset < 0 || offset > 127) {
 						throw new ParserException("Invalid pitch offset. Expacted values 0-127.", next);
 					}
 					eat();
@@ -575,13 +548,13 @@ public class Parser {
 					}
 					eat();
 
-					if(in_macro) {
-						List<Integer> macro_data = song_root.getMacroData(id);
-						song.addData(active, macro_data);
-					} else {
-						song.addData(active, Song.CMD.T_MACRO.ordinal());
-						song.addData(active, song_root.getMacroIndex(id));
-					}
+                    if(in_macro) {
+                        List<Integer> macro_data = song_root.getMacroData(id);
+                        song.addData(active, macro_data);
+                    } else {
+                        song.addData(active, Song.CMD.T_MACRO.ordinal());
+                        song.addData(active, song_root.getMacroIndex(id));
+                    }
 				}
 			}
 			else if(next.type == Lexer.TokenType.LBRACKET) {
