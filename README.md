@@ -7,6 +7,7 @@ Please refer to the [MMLGB Wiki](https://github.com/potatoTeto/mmlgb/wiki) for a
 
 ## Dependencies
 - [GBDK](https://github.com/gbdk-2020/gbdk-2020)
+  - ``gbdk/bin`` should also be added to PATH/Environment Variables.
 - [Java Development Kit](https://www.oracle.com/java/technologies/downloads/)
 
 # Usage
