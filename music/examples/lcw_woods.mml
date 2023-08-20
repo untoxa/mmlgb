@@ -1,0 +1,116 @@
+;For Last Crown Warriors
+;Compile with MMLGB
+@wave0 = { 0 0 1 1 2 9 9 10 11 12 13 13 14 14 14 15 13 12 11 11 10 10 10 10 10 10 11 11 12 12 12 15 }
+@wave1 = { 0 2 5 8 15 15 15 15 15 15 15 15 15 14 13 12 11 10 9 7 6 5 4 3 2 1 0 0 0 0 0 0 }
+
+; pulse channel 1
+; 4/4
+
+A t140 [r24]3 L @wd2 @ve-1 o4 v9 y-1 l16 @po1
+A a>e<a>e<a>e<a>e<a>d<a>d<a>d<a>d
+A <a>e<a>ecfcf<a>d<a>d<a>d<a>d
+A <b>e<b>d+<a>d<a>d<b>f<b>f<b>f<b>f
+A <a+>f<a+>f<a+>f<a+>f<a+>e<a+>e<a+>e<a+>e
+A <a>e<a>e<a>e<a>e<a>d<a>d<a>d<a>d
+A <a>e<a>ecfcf<a>d<a>d<a>d<a>d
+A <f>c<f>c<f>c<f>c<a+>f<a+>f<a+>f<a+>f
+A <a+>f<a+>f<a+>f<a+>f<a+>e<a+>e y0 c+a>c+e
+
+A v8 @po0
+
+
+A d<f>d<f>d<f>d<f>d<f>d<f>d<f
+A >d<f>c<g>c<g>c<g>c<g>c<e>c<e>c<e
+A >c<edgdgdgdgc+gc+gc+g
+A c+ge<a>e<afa>ceg<a>gcacfc
+
+
+A f<a+>f<a+>f<a+>f<a+>a<a+>a<a+>f<a+>f<a+
+A >gcgcgcgcacac>c<c>c<c
+A adadadadf<b>f<b>g<b>g<b
+A >f<a+>f<a+fa+>cfg<a+>g<a+>a+ea+8<
+
+
+A @wd1 @ve0 v10 y0
+A frfr8.<a>cfrfr8.fr
+A d+rd+r8.<g>dd+rd+r8.d+r
+A <a+ra+r8.fga+ra+r8.a+r
+A >drdr8.<a+>cc+r<a+r>d+4
+A frfr8.<a>cfrfr8.fr
+A d+rd+r8.<g>dd+rd+r8.d+r
+A <a+ra+r8.fga+ra+r8.a+r
+A >drdr8.<a+>cc+r<a+r>d+8 o4 y0 v12 f24>c24d24
+
+; pulse channel 2
+; 4/4
+
+B @wd1 @ve0 o4 v11 y0 f24>c24d24 L o5 v11 y0
+B @v4,2,=32 f6^8 v5 f12 @v0,0 v11 <f24>c24f24 @v4,2,=32 g6^8 v5 g12 @v0,0 v11 c24f24g24
+B a+8a24 v5 a12 @v4,2,=32 v11 a4. v5 a8 @v0,0 v11 a24 v5 a24 v11 a+24 v5 a+24 v11 >c24 v5 c24
+B @v4,2,=32 v11 <f4 v5 f8 @v0,0 v11 g16a16a+12 v5 a+24 v11 a12 v5 a24 v11 g12 v5 g24 v11 d12 v5 d24
+B @v4,2,=32 v11 f4 v5 f8 @v0,0 v11 e32 v5 e32 v11 d32 v5 d32 @v4,2,=32 v11 e4 v5 e8 @v0,0 v11 <f24>c24d24
+B @v4,2,=32 f4 v5 f8 @v0,0 v11 <f24>c24f24 @v4,2,=32 g4 v5 g8 @v0,0 v11 c24f24g24
+B a+8a24 v5 a12 v11 @v4,2,=32 a4 v5 a8 v2 a8 @v0,0 v11 a24 v5 a24 v11 a+24 v5 a+24 v11 >c24 v5 c24
+B @v4,2,=32 v11 d2^8 v5 d8 v2 d8 @v0,0 v11 c32 v5 c32 v11 f32 v5 f32
+B @v4,2,=32 v11 <a8. v5 a8. @v0,0 v11 a+16a16g8f8e8f16 v5 f16
+B @v4,2,=32 v11 f8. v5 f16 @v0,0
+
+B v11 y0 <<< l16
+B a+ra+ra+ra+ra+ra+r
+B >frfrfrfrfrfrfrfr
+B ererarar<arar>erer
+B drdrdrdrdrdrdrdr
+
+B <grgrgrgrgrgrgrgr
+B arararar>frfrfrfr
+B grgr<brbr>drdrgrgr
+B crcrcrcrcrcrcrcr
+
+B v10 >
+B arar8.cgarar8.ar
+B grgr8.<a+>fgrgr8.gr
+B frfr8.<a+>cfrfr8.fr
+B frfr8.defrc+rg4
+B arar8.cgarar8.ar
+B grgr8.<a+>fgrgr8.gr
+B frfr8.<a+>cfrfr8.fr
+B frfr8.defrc+rg4
+
+; wave channel
+; 4/4
+
+C @wave0 v3 y0 [r24]3 L o3 l16
+C frfr>c8<grfrfr8.cr
+C frfr>c8<grfrfr<a8>er
+C drar>d8<drgrgr8.dr
+C crcrg8drcrcr<g8>cr
+C frfr>c8<grfrfr8.cr
+C frfr>c8<grfrfr<f8ar
+C a+ra+r>f8cr<a+ra+r8.a+r
+C >crcrg8drcrcr<e8a8
+C a+ra+32 v2 a+32 v3 >f32 v2 f32 v3
+
+C o5 @wave1 y0
+C v3 d8. v2 d16 v3 f8. v2 f16 v3 >d8. v2 d16
+C v3 c4 v2 c8 v3 <a+32 v2 a+32 v3 a32 v2 a32 v3 f4 v2 f8 v3 d32 v2 d32 v3 f32 v2 f32
+C v3 a+4 v2 a+8 v3 a32 v2 a32 v3 g32 v2 g32 v3 g16. v2 g32 v3 f16. v2 f32 v3 e16. v2 e32 v3 f16. v2 f32
+C v3 c2^8 v2 c8 v2 c8r8
+
+C r4 v3 d8.. v2 d32 v3 e8.. v2 e32 v3 f8.. v2 f32
+C v3 f4 v2 f8 v3 c16 v2 c16 v3 > c4^16 v2 c16 v3 < g32. v2 g64 v3 a32. v2 a64
+C v3 b4 v2 b8 v3 g32 v2 g32 v3 b32 v2 b32 v3 > d16. v2 d32 v3 < b16. v2 b32 v3 > f16. v2 f32 v3 d16. v2 d32
+C v3 g2^8 v2 g8 v1 g8 r8
+
+C @wave0 v3 o3 y0
+C [frfr>c8<fffrfr>f8
+C <frfrfr>c8<fffrfr>f8
+C <frd+rd+ra+8d+d+d+rd+r>d+8
+C <d+rdrdra+8ddc+rg+ra+4 ]2
+
+
+; noise channel
+; 4/4
+
+D [r24]3 L @ve-1 o6 l=8
+D [ v10 br=4 v5 br=4 v8 br=4 v9 br=4 v10 br=4 v5 br=4 v8 br=4 v9 br=4 v10 br=4 v5 br=4 v8 br=4 v9 br=4 v10 br=4 v5 br=4 v8 br=4 v9 br=4
+D v10 br=4 v5 br=4 v8 br=4 v9 br=4 v10 br=4 v5 br=4 v8 br=4 v9 br=4 v10 b24 v7 b24 v9 b24 v8 br=4 v9 br=4 v10 br=4 v5 br=4 v8 br=4 v9 br=4]12
